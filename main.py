@@ -1,6 +1,10 @@
 from flask import Flask, jsonify
 import os
 import requests
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -12,10 +16,10 @@ def get_salesforce_token():
     }
     data = {
         'grant_type': 'password',
-        'client_id': '3MVG9Gm6vbdjgMWTBevdHcWeTmCOYMPT9wnFTYg.XOnmrlTrk25zScjOITsnmWCbHlcRP2Qq8iAZofCbOISPP',
-        'client_secret': '5532B0D365FF07638FD013E7C0411B147CC83EC8A3AB9CF48C23A8EC6652A600',
-        'username': 'ibm.joseph@crmdna.com',
-        'password': 'sahHSAkjh178632#$1Rf8HAdfZf20Ym3FArcwm3AyC'
+        'client_id': os.getenv('SALESFORCE_CLIENT_ID'),
+        'client_secret': os.getenv('SALESFORCE_CLIENT_SECRET'),
+        'username': os.getenv('SALESFORCE_USERNAME'),
+        'password': os.getenv('SALESFORCE_PASSWORD')
     }
     
     response = requests.post(url, headers=headers, data=data)
